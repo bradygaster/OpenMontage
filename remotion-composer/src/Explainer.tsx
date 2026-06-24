@@ -11,6 +11,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/SpaceGrotesk";
+import { loadFont as loadMono } from "@remotion/google-fonts/JetBrainsMono";
 
 // Resolve asset path — handle URLs, absolute paths (Windows/Unix), and public/ relative paths
 function resolveAsset(src: string): string {
@@ -57,6 +58,8 @@ const { fontFamily } = loadFont("normal", {
   weights: ["400", "700"],
   subsets: ["latin"],
 });
+// Load JetBrains Mono for neo-brutalist labels / metadata
+loadMono("normal", { weights: ["400", "500", "700"], subsets: ["latin"] });
 
 // ---------------------------------------------------------------------------
 // Animated Background — Gradient Mesh + Floating Orbs
@@ -581,7 +584,14 @@ const SceneRenderer: React.FC<{ cut: Cut; theme: ThemeConfig }> = ({ cut, theme 
   // Explicit component types — use theme-derived defaults for colors
   if (cut.type === "text_card" && cut.text) {
     return maybeWrapWithBg(
-      <TextCard text={cut.text} fontSize={cut.fontSize} color={textColor} backgroundColor={bgColor} />
+      <TextCard
+        text={cut.text}
+        fontSize={cut.fontSize}
+        color={textColor}
+        backgroundColor={theme.backgroundColor}
+        accentColor={accent}
+        mutedColor={theme.mutedTextColor}
+      />
     );
   }
   if (cut.type === "stat_card" && cut.stat) {
@@ -609,7 +619,14 @@ const SceneRenderer: React.FC<{ cut: Cut; theme: ThemeConfig }> = ({ cut, theme 
   }
   if (cut.type === "hero_title" && cut.text) {
     return maybeWrapWithBg(
-      <HeroTitle title={cut.text} subtitle={cut.heroSubtitle || cut.subtitle} />
+      <HeroTitle
+        title={cut.text}
+        subtitle={cut.heroSubtitle || cut.subtitle}
+        accentColor={accent}
+        backgroundColor={theme.backgroundColor}
+        textColor={theme.textColor}
+        mutedTextColor={theme.mutedTextColor}
+      />
     );
   }
   if (cut.type === "terminal_scene" && cut.steps) {
@@ -712,9 +729,11 @@ const SceneRenderer: React.FC<{ cut: Cut; theme: ThemeConfig }> = ({ cut, theme 
         accentColor={accent}
         colors={cut.chartColors || theme.chartColors}
         backgroundColor={bgColor || theme.backgroundColor}
+        surfaceColor={theme.surfaceColor}
         textColor={textColor}
         mutedTextColor={theme.mutedTextColor}
         fontFamily={theme.headingFont}
+        monoFamily={theme.monoFont}
       />
     );
   }
@@ -730,9 +749,11 @@ const SceneRenderer: React.FC<{ cut: Cut; theme: ThemeConfig }> = ({ cut, theme 
         accentColor={accent}
         colors={cut.chartColors || theme.chartColors}
         backgroundColor={bgColor || theme.backgroundColor}
+        surfaceColor={theme.surfaceColor}
         textColor={textColor}
         mutedTextColor={theme.mutedTextColor}
         fontFamily={theme.headingFont}
+        monoFamily={theme.monoFont}
         sceneDurationSeconds={cut.out_seconds - cut.in_seconds}
       />
     );

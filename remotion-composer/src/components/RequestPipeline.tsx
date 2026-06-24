@@ -5,6 +5,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { BrutalGrid, hardShadow, RADIUS } from "./brutalist";
 
 export interface PipelineStage {
   label: string;
@@ -25,6 +26,7 @@ interface RequestPipelineProps {
   accentColor?: string;
   colors?: string[];
   backgroundColor?: string;
+  surfaceColor?: string;
   textColor?: string;
   mutedTextColor?: string;
   fontFamily?: string;
@@ -52,11 +54,12 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
   request = "refactor the auth system",
   stages,
   agents = [],
-  accentColor = "#2F81F7",
-  colors = ["#2F81F7", "#A371F7", "#3FB950", "#F778BA"],
-  backgroundColor = "#0D1117",
-  textColor = "#F0F6FC",
-  mutedTextColor = "#8B949E",
+  accentColor = "#9A5BE0",
+  colors = ["#9A5BE0", "#E8A24A", "#E0744C", "#B98CFF"],
+  backgroundColor = "#181219",
+  surfaceColor = "#241A28",
+  textColor = "#F2E9E1",
+  mutedTextColor = "#B3A4B8",
   fontFamily = "Space Grotesk, Inter, system-ui, sans-serif",
   monoFamily = "JetBrains Mono, SFMono-Regular, Menlo, monospace",
   sceneDurationSeconds,
@@ -113,6 +116,7 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
 
   return (
     <AbsoluteFill style={{ background: backgroundColor }}>
+      <BrutalGrid ink={textColor} accent={accentColor} label="coordinator · pipeline" />
       {title && (
         <div
           style={{
@@ -175,9 +179,8 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
           x2={Math.max(firstC, Math.min(chipX + 150, lastC))}
           y2={TRACK_Y}
           stroke={accentColor}
-          strokeWidth={4}
-          strokeLinecap="round"
-          style={{ filter: `drop-shadow(0 0 6px ${accentColor})` }}
+          strokeWidth={6}
+          strokeLinecap="butt"
         />
 
         {/* Fan-out edges from last stage to each agent */}
@@ -197,10 +200,9 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
               y2={AGENT_Y - 92}
               stroke={handColor(i)}
               strokeWidth={4}
-              strokeLinecap="round"
+              strokeLinecap="butt"
               strokeDasharray={len}
               strokeDashoffset={len * (1 - draw)}
-              style={{ filter: `drop-shadow(0 0 5px ${handColor(i)}66)` }}
             />
           );
         })}
@@ -225,12 +227,12 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
                 top: TRACK_Y - NODE_H / 2,
                 width: NODE_W,
                 height: NODE_H,
-                borderRadius: 16,
-                background: isActive ? "rgba(47,129,247,0.12)" : "rgba(22,27,34,0.92)",
-                border: `2px solid ${border}`,
+                borderRadius: RADIUS,
+                background: isActive ? surfaceColor : backgroundColor,
+                border: `3px solid ${border}`,
                 boxShadow: isActive
-                  ? `0 0 0 1px ${accentColor}55, 0 18px 40px rgba(0,0,0,0.5), 0 0 30px ${accentColor}55`
-                  : "0 12px 28px rgba(0,0,0,0.4)",
+                  ? hardShadow(accentColor, 8, 8)
+                  : hardShadow("#0D0910", 6, 6),
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -250,12 +252,12 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
                   left: -16,
                   width: 40,
                   height: 40,
-                  borderRadius: 999,
-                  background: isActive ? accentColor : "#161B22",
-                  border: `2px solid ${isActive ? accentColor : "rgba(139,148,158,0.5)"}`,
-                  color: isActive ? "#0D1117" : mutedTextColor,
-                  fontFamily,
-                  fontWeight: 800,
+                  borderRadius: RADIUS,
+                  background: isActive ? accentColor : backgroundColor,
+                  border: `2px solid ${isActive ? accentColor : "rgba(179,164,184,0.5)"}`,
+                  color: isActive ? "#181219" : mutedTextColor,
+                  fontFamily: monoFamily,
+                  fontWeight: 700,
                   fontSize: 22,
                   display: "flex",
                   alignItems: "center",
@@ -323,14 +325,14 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
             top: TRACK_Y - 96,
             transform: "translateX(-50%)",
             padding: "12px 22px",
-            borderRadius: 999,
+            borderRadius: RADIUS,
             background: accentColor,
-            color: "#0D1117",
+            color: "#181219",
             fontFamily: monoFamily,
             fontWeight: 700,
             fontSize: 22,
             whiteSpace: "nowrap",
-            boxShadow: `0 10px 30px ${accentColor}88, 0 0 0 6px ${accentColor}22`,
+            boxShadow: hardShadow("#0D0910", 6, 6),
           }}
         >
           “{request}”
@@ -354,10 +356,10 @@ export const RequestPipeline: React.FC<RequestPipelineProps> = ({
               top: AGENT_Y - 70,
               width: 300,
               height: 140,
-              borderRadius: 16,
-              background: "rgba(22,27,34,0.95)",
-              border: `2px solid ${c}`,
-              boxShadow: `0 16px 38px rgba(0,0,0,0.5), 0 0 26px ${c}44`,
+              borderRadius: RADIUS,
+              background: surfaceColor,
+              border: `3px solid ${c}`,
+              boxShadow: hardShadow("#0D0910", 8, 8),
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

@@ -1,4 +1,5 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { hardShadow, RADIUS } from "./brutalist";
 
 /**
  * TerminalScene — animated terminal with typed commands and scrolling output.
@@ -45,8 +46,8 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
   title = "Terminal",
   steps,
   prompt = "$",
-  accentColor = "#22D3EE",
-  backgroundColor = "#0B0F1A",
+  accentColor = "#9A5BE0",
+  backgroundColor = "#181219",
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -123,10 +124,11 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
           height: "80%",
           opacity: windowOpacity,
           transform: `scale(${interpolate(windowOpacity, [0, 1], [0.97, 1])})`,
-          borderRadius: 16,
+          borderRadius: RADIUS,
           overflow: "hidden",
-          boxShadow: "0 40px 120px rgba(0,0,0,0.6), 0 0 1px rgba(255,255,255,0.2) inset",
-          background: "#12151F",
+          boxShadow: hardShadow("#0D0910", 12, 12),
+          border: "3px solid #3A2F40",
+          background: "#1E1622",
           position: "relative",
         }}
       >
@@ -137,8 +139,8 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
             alignItems: "center",
             gap: 8,
             padding: "14px 18px",
-            background: "#1A1F2E",
-            borderBottom: "1px solid rgba(255,255,255,0.05)",
+            background: "#241A28",
+            borderBottom: "1px solid rgba(242,233,225,0.08)",
           }}
         >
           <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F56" }} />
@@ -148,9 +150,10 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
             style={{
               flex: 1,
               textAlign: "center",
-              color: "#8E8E93",
+              color: "#B3A4B8",
               fontSize: 16,
-              fontFamily: "Inter, sans-serif",
+              fontFamily: "'JetBrains Mono', monospace",
+              letterSpacing: "0.08em",
             }}
           >
             {title}
@@ -245,15 +248,15 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
                   right: 32,
                   padding: "12px 20px",
                   background: pill.color,
-                  color: "#0B0F1A",
-                  borderRadius: 999,
-                  fontFamily: "Inter, sans-serif",
+                  color: "#181219",
+                  borderRadius: RADIUS,
+                  fontFamily: "'JetBrains Mono', monospace",
                   fontWeight: 700,
                   fontSize: 20,
                   letterSpacing: 0.2,
                   opacity: alpha,
                   transform: `translateY(${translateY}px)`,
-                  boxShadow: `0 10px 30px ${pill.color}40`,
+                  boxShadow: hardShadow("#0D0910", 5, 5),
                 }}
               >
                 {pill.text}

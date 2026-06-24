@@ -5,6 +5,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { BrutalGrid, hardShadow, RADIUS } from "./brutalist";
 
 export interface FlowNode {
   title: string;
@@ -20,9 +21,11 @@ interface FlowDiagramProps {
   accentColor?: string;
   colors?: string[];
   backgroundColor?: string;
+  surfaceColor?: string;
   textColor?: string;
   mutedTextColor?: string;
   fontFamily?: string;
+  monoFamily?: string;
 }
 
 // Fixed 1920x1080 layout coordinates so the SVG edge layer and the HTML node
@@ -92,10 +95,9 @@ const Edge: React.FC<{
           y2={b.y}
           stroke={color}
           strokeWidth={6}
-          strokeLinecap="round"
-          strokeDasharray="16 40"
-          strokeDashoffset={-((flowFrame * 4) % 56)}
-          style={{ filter: `drop-shadow(0 0 6px ${color})` }}
+          strokeLinecap="butt"
+          strokeDasharray="10 30"
+          strokeDashoffset={-((flowFrame * 4) % 40)}
         />
       )}
     </g>
@@ -107,12 +109,14 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
   brain,
   hands,
   memory,
-  accentColor = "#2F81F7",
-  colors = ["#2F81F7", "#A371F7", "#3FB950", "#F778BA"],
-  backgroundColor = "#0D1117",
-  textColor = "#F0F6FC",
-  mutedTextColor = "#8B949E",
+  accentColor = "#9A5BE0",
+  colors = ["#9A5BE0", "#E8A24A", "#E0744C", "#B98CFF"],
+  backgroundColor = "#181219",
+  surfaceColor = "#241A28",
+  textColor = "#F2E9E1",
+  mutedTextColor = "#B3A4B8",
   fontFamily = "Space Grotesk, Inter, system-ui, sans-serif",
+  monoFamily = "JetBrains Mono, SFMono-Regular, Menlo, monospace",
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -158,10 +162,10 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
           top: cy - h / 2,
           width: w,
           height: h,
-          borderRadius: 18,
-          background: "rgba(22,27,34,0.92)",
-          border: `2px solid ${border}`,
-          boxShadow: `0 0 0 1px rgba(255,255,255,0.03), 0 18px 40px rgba(0,0,0,0.45), 0 0 28px ${border}33`,
+          borderRadius: RADIUS,
+          background: surfaceColor,
+          border: `3px solid ${border}`,
+          boxShadow: hardShadow("#0D0910", 9, 9),
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -192,13 +196,13 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
         {node.subtitle && (
           <div
             style={{
-              fontFamily,
+              fontFamily: monoFamily,
               fontWeight: 500,
-              fontSize: 22,
+              fontSize: 20,
               color: mutedTextColor,
               textAlign: "center",
               textTransform: "uppercase",
-              letterSpacing: "0.06em",
+              letterSpacing: "0.14em",
             }}
           >
             {node.subtitle}
@@ -209,15 +213,14 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
             style={{
               marginTop: 4,
               padding: "6px 18px",
-              borderRadius: 999,
+              borderRadius: RADIUS,
               background: border,
-              color: "#0D1117",
-              fontFamily,
-              fontWeight: 800,
+              color: "#181219",
+              fontFamily: monoFamily,
+              fontWeight: 700,
               fontSize: 22,
-              letterSpacing: "0.02em",
+              letterSpacing: "0.04em",
               transform: `scale(${badgePulse})`,
-              boxShadow: `0 0 20px ${border}AA`,
             }}
           >
             {node.badge}
@@ -229,22 +232,24 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
 
   return (
     <AbsoluteFill style={{ background: backgroundColor }}>
+      <BrutalGrid ink={textColor} accent={accentColor} label="three layers · one team" />
       {/* Title */}
       {title && (
         <div
           style={{
             position: "absolute",
-            top: 70,
-            width: "100%",
-            textAlign: "center",
-            fontFamily,
+            top: 64,
+            left: 96,
+            fontFamily: monoFamily,
             fontWeight: 700,
-            fontSize: 52,
+            fontSize: 34,
             color: textColor,
             opacity: titleOpacity,
-            letterSpacing: "-0.02em",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
           }}
         >
+          <span style={{ color: accentColor }}>// </span>
           {title}
         </div>
       )}
@@ -309,9 +314,10 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
           top: MEMORY.cy - MEMORY.h / 2,
           width: MEMORY.w,
           height: MEMORY.h,
-          borderRadius: 20,
-          background: "linear-gradient(90deg, rgba(63,185,80,0.16), rgba(47,129,247,0.16))",
-          border: `2px solid ${colors[2] ?? accentColor}`,
+          borderRadius: RADIUS,
+          background: surfaceColor,
+          border: `3px solid ${colors[2] ?? accentColor}`,
+          boxShadow: hardShadow("#0D0910", 9, 9),
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -323,18 +329,6 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
           overflow: "hidden",
         }}
       >
-        {/* moving evidence sheen */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            width: 240,
-            left: `${((frame * 1.1) % (MEMORY.w + 240)) - 240}px`,
-            background:
-              "linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent)",
-          }}
-        />
         <div
           style={{
             fontFamily,
@@ -349,10 +343,12 @@ export const FlowDiagram: React.FC<FlowDiagramProps> = ({
           {memory.subtitle && (
             <span
               style={{
+                fontFamily: monoFamily,
                 fontWeight: 500,
-                fontSize: 26,
+                fontSize: 24,
                 color: mutedTextColor,
                 marginLeft: 16,
+                letterSpacing: "0.04em",
               }}
             >
               {memory.subtitle}
