@@ -18,6 +18,17 @@ This file teaches the bridge between the two.
 
 ---
 
+## Design Quality (MANDATORY)
+
+Every HyperFrames composition must meet the repo-wide design bar in
+**`skills/core/design-system.md`** (Impeccable-grade, video-adapted). Read it before authoring
+HTML/CSS/GSAP, and run its **Pre-Render Design Gate** before final render. It governs color,
+typography, layout, motion intent, and the absolute-ban anti-tells. The headless-render trap
+applies here too: GSAP timelines must populate `window.__timelines` synchronously and animate
+from visible defaults so seek-and-capture never lands on a blank frame.
+
+---
+
 ## When OpenMontage should pick HyperFrames (vs Remotion vs FFmpeg)
 
 OpenMontage separates two concepts:

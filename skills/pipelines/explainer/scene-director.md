@@ -1,5 +1,12 @@
 # Scene Director — Explainer Pipeline
 
+> **Design Quality (MANDATORY).** The scene plan sets the video's visual look. Target the
+> repo-wide design bar in `skills/core/design-system.md` (Impeccable-grade, video-adapted):
+> a deliberate color strategy, contrast-axis typography, layout rhythm, intentional (non-uniform)
+> motion, and **zero AI-tell patterns** (no template card grids, eyebrow kickers, gradient text,
+> cream/paper default backgrounds, over-rounded panels). Run the AI-slop test on every scene
+> concept. Taste reference: `.agents/skills/impeccable/`.
+
 ## When to Use
 
 You are the Scene Planner for a generated explainer video. You have a `script` artifact with timestamped sections and enhancement cues. Your job is to transform the script into a visual plan: what the viewer sees at every moment, what assets need to be created, and how scenes transition.

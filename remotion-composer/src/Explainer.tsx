@@ -35,6 +35,9 @@ import { LineChart } from "./components/charts/LineChart";
 import { PieChart } from "./components/charts/PieChart";
 import { KPIGrid } from "./components/charts/KPIGrid";
 import { ProgressBar } from "./components/ProgressBar";
+import { FlowDiagram, FlowNode } from "./components/FlowDiagram";
+import { RequestPipeline } from "./components/RequestPipeline";
+import type { PipelineStage, PipelineAgent } from "./components/RequestPipeline";
 import { CaptionOverlay, WordCaption } from "./components/CaptionOverlay";
 import { SectionTitle } from "./components/SectionTitle";
 import { StatReveal } from "./components/StatReveal";
@@ -231,6 +234,18 @@ interface Cut {
   progressColor?: string;
   progressAnimation?: string;
   progressSegments?: any[];
+  // Flow diagram props (type: "flow_diagram")
+  flow?: {
+    brain: FlowNode;
+    hands: FlowNode[];
+    memory: FlowNode;
+  };
+  // Request pipeline props (type: "request_pipeline")
+  pipeline?: {
+    request?: string;
+    stages: PipelineStage[];
+    agents?: PipelineAgent[];
+  };
   // Hero title props (when used as scene, not overlay)
   heroSubtitle?: string;
   // Styling overrides
@@ -683,6 +698,43 @@ const SceneRenderer: React.FC<{ cut: Cut; theme: ThemeConfig }> = ({ cut, theme 
           segments={cut.progressSegments} backgroundColor={cut.backgroundColor || theme.surfaceColor}
         />
       </AbsoluteFill>
+    );
+  }
+
+  // --- Flow / architecture diagram ---
+  if (cut.type === "flow_diagram" && cut.flow) {
+    return maybeWrapWithBg(
+      <FlowDiagram
+        title={cut.title}
+        brain={cut.flow.brain}
+        hands={cut.flow.hands}
+        memory={cut.flow.memory}
+        accentColor={accent}
+        colors={cut.chartColors || theme.chartColors}
+        backgroundColor={bgColor || theme.backgroundColor}
+        textColor={textColor}
+        mutedTextColor={theme.mutedTextColor}
+        fontFamily={theme.headingFont}
+      />
+    );
+  }
+
+  // --- Request pipeline (animated coordinator walkthrough) ---
+  if (cut.type === "request_pipeline" && cut.pipeline) {
+    return maybeWrapWithBg(
+      <RequestPipeline
+        title={cut.title}
+        request={cut.pipeline.request}
+        stages={cut.pipeline.stages}
+        agents={cut.pipeline.agents}
+        accentColor={accent}
+        colors={cut.chartColors || theme.chartColors}
+        backgroundColor={bgColor || theme.backgroundColor}
+        textColor={textColor}
+        mutedTextColor={theme.mutedTextColor}
+        fontFamily={theme.headingFont}
+        sceneDurationSeconds={cut.out_seconds - cut.in_seconds}
+      />
     );
   }
 

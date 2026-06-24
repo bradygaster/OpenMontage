@@ -1,5 +1,12 @@
 # Scene Director - Localization Dub Pipeline
 
+> **Design Quality (MANDATORY).** The scene plan sets the video's visual look. Target the
+> repo-wide design bar in `skills/core/design-system.md` (Impeccable-grade, video-adapted):
+> a deliberate color strategy, contrast-axis typography, layout rhythm, intentional (non-uniform)
+> motion, and **zero AI-tell patterns** (no template card grids, eyebrow kickers, gradient text,
+> cream/paper default backgrounds, over-rounded panels). Run the AI-slop test on every scene
+> concept. Taste reference: `.agents/skills/impeccable/`.
+
 ## When To Use
 
 Plan how each localized deliverable will handle timing, visible speech, subtitles, and on-screen text. This is where the pipeline decides whether to preserve the original cut, cover mouth-visible sections, or attempt lip sync.

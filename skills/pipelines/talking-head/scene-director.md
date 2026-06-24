@@ -1,5 +1,12 @@
 # Scene Director — Talking Head Pipeline
 
+> **Design Quality (MANDATORY).** The scene plan sets the video's visual look. Target the
+> repo-wide design bar in `skills/core/design-system.md` (Impeccable-grade, video-adapted):
+> a deliberate color strategy, contrast-axis typography, layout rhythm, intentional (non-uniform)
+> motion, and **zero AI-tell patterns** (no template card grids, eyebrow kickers, gradient text,
+> cream/paper default backgrounds, over-rounded panels). Run the AI-slop test on every scene
+> concept. Taste reference: `.agents/skills/impeccable/`.
+
 ## When to Use
 
 You have a script (from transcription) and raw footage. Your job is to **watch the footage, understand the content, and propose a creative enhancement plan** — then build a scene plan that transforms raw talking-head footage into an engaging, visually rich video.

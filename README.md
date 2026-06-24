@@ -403,6 +403,23 @@ Layer 3: .agents/skills/             "How it works" — external technology know
 
 Each tool declares which Layer 3 skills it relies on. The agent reads Layer 1 to know what's available, Layer 2 to know how OpenMontage wants it used, and Layer 3 for deep technical knowledge when needed.
 
+### Design Quality Standard
+
+Every video and presentation OpenMontage produces targets an **Impeccable-grade** visual bar —
+no template-looking, "AI made that" frames. This is enforced through the skill system, not left
+to chance:
+
+- **`skills/core/design-system.md`** — the repo-wide design standard. It adapts
+  [Impeccable](https://github.com/pbakaus/impeccable) (Apache-2.0) for video/motion-graphics:
+  deliberate color strategy, contrast-axis typography, layout rhythm, intentional motion, and a
+  list of absolute-ban "AI tells" to refuse. It defines a **Pre-Render Design Gate** run before
+  every final render.
+- **`.agents/skills/impeccable/`** — the vendored Impeccable taste reference (design knowledge
+  only; the upstream live-browser/web tooling is intentionally omitted as it doesn't apply to
+  rendered video).
+- Every runtime skill (`remotion.md`, `hyperframes.md`) and every pipeline's scene-director skill
+  point back to this standard, so the bar applies regardless of which engine renders the video.
+
 ---
 
 ## Supported Providers

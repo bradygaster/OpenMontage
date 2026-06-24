@@ -1,5 +1,12 @@
 # Scene Director - Avatar Spokesperson Pipeline
 
+> **Design Quality (MANDATORY).** The scene plan sets the video's visual look. Target the
+> repo-wide design bar in `skills/core/design-system.md` (Impeccable-grade, video-adapted):
+> a deliberate color strategy, contrast-axis typography, layout rhythm, intentional (non-uniform)
+> motion, and **zero AI-tell patterns** (no template card grids, eyebrow kickers, gradient text,
+> cream/paper default backgrounds, over-rounded panels). Run the AI-slop test on every scene
+> concept. Taste reference: `.agents/skills/impeccable/`.
+
 ## When To Use
 
 Plan the visual system for the presenter-led cut. This stage decides how the speaker sits in frame, what support layers appear, and which aspect ratios are actually worth building.

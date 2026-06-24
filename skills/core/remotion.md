@@ -13,6 +13,15 @@ Remotion API usage — imports, timing, animation constraints, code patterns.
 **This file** teaches how OpenMontage uses Remotion — which compositions map to pipeline
 stages, how artifacts flow in, and how renders are triggered.
 
+## Design Quality (MANDATORY)
+
+Every Remotion scene/component you author or modify must meet the repo-wide design bar in
+**`skills/core/design-system.md`** (Impeccable-grade, video-adapted). Read it before writing
+components, and run its **Pre-Render Design Gate** before the final render. It governs color,
+typography, layout, motion intent, and the absolute-ban anti-tells. Note the **headless-render
+trap**: drive motion off the frame clock (`useCurrentFrame`), never gate visibility on CSS
+transitions — they can ship blank frames in headless Chrome.
+
 ## Remotion-First Routing
 
 **Remotion is the DEFAULT composition engine for ALL final renders when available.**
@@ -362,6 +371,7 @@ visual findings, and caption status before declaring the video complete.
 
 ## Quality Checklist
 
+- [ ] **Design gate passed** — frames meet `skills/core/design-system.md` (no absolute-ban tells, AI-slop test passes)
 - [ ] Composition duration matches sum of scene durations minus transition overlaps
 - [ ] All `staticFile()` references resolve to existing assets
 - [ ] Transitions don't cut off content (account for overlap in timing)

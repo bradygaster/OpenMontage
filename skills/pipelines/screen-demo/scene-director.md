@@ -1,5 +1,12 @@
 # Scene Director - Screen Demo Pipeline
 
+> **Design Quality (MANDATORY).** The scene plan sets the video's visual look. Target the
+> repo-wide design bar in `skills/core/design-system.md` (Impeccable-grade, video-adapted):
+> a deliberate color strategy, contrast-axis typography, layout rhythm, intentional (non-uniform)
+> motion, and **zero AI-tell patterns** (no template card grids, eyebrow kickers, gradient text,
+> cream/paper default backgrounds, over-rounded panels). Run the AI-slop test on every scene
+> concept. Taste reference: `.agents/skills/impeccable/`.
+
 ## When To Use
 
 You are planning how the viewer's attention moves through an existing screen capture. The source video already exists; your job is to decide when to stay wide, when to crop in, and when to add minimal guidance.

@@ -57,12 +57,14 @@ When the user asks to make, create, produce, or generate any video content — a
 3. **Run preflight.** Discover available tools via the registry. Present the capability menu.
 4. **Execute stage by stage.** For EACH stage, read the stage director skill (`skills/pipelines/<pipeline>/<stage>-director.md`) BEFORE doing any work in that stage.
 5. **Read Layer 3 skills before calling tools.** Before using any tool with an `agent_skills` field, read the referenced skill in `.agents/skills/`. These contain provider-specific prompting guidance, parameter optimization, and quality techniques that dramatically improve output.
+6. **Meet the design bar.** Before authoring ANY visual (Remotion scenes, HyperFrames HTML, diagrams, title cards, image prompts), read `skills/core/design-system.md` — the repo-wide Impeccable-grade design standard — and run its Pre-Render Design Gate before final render.
 
 **Do NOT:**
 - Write ad-hoc Python scripts to call tools directly
 - Skip the pipeline and go straight to API calls
 - Generate assets without reading the stage director skill first
 - Use a tool without checking its Layer 3 skill for prompting guidance
+- Ship visuals that trip the absolute-ban anti-tells in `skills/core/design-system.md`
 - Bypass preflight, checkpoints, or review
 
 The intelligence is in the skills, not in improvised code. An agent that reads the director skills and Layer 3 knowledge will produce significantly better output than one that calls tools directly with generic prompts.
